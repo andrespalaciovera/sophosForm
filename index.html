@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .repair.grid{
+            width: 100%;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            margin-top: 5em;
+        }
+
+        .repair .text {
+            margin: 0 auto;
+            text-align: center;
+            padding: 3em;
+            max-width: 70%;
+            color: #F5F5F5
+        }
+
+        .repair .text h0{
+            font-size: var(--text-h0);
+            line-height: 1;
+            font-family: var(--heading-font-family);
+            font-weight: var(--heading-font-weight);
+            font-style: var(--heading-font-style);
+            letter-spacing: var(--heading-letter-spacing);
+            text-transform: var(--heading-text-transform);
+            overflow-wrap: anywhere;
+            margin-bottom: 2em;
+        }
+
+        .repair .text p{
+            padding: 2em 5em;
+        }
+
+        .repair .form{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 500px;
+            width: 100%;
+        }
+        .tabs {
+            width: 100%;
+        }
+
+        .tab-nav {
+            display: flex;
+            background: #f5f5f5;
+            border-radius: 30px 30px 0px 0px;
+        }
+
+        .nav-item {
+            display: block;
+            padding: 16px;
+            cursor: pointer;
+        
+            &.selected {
+                font-weight: bold;
+                background: #fff;
+            }
+        }
+
+        .tab {
+            display: none;
+            padding: 16px;
+        
+            &.selected {
+                display: flex;
+                flex-direction: column;
+                padding: 3em;
+                background: #F5F5F5;
+                border-radius: 0px 0px 30px 30px;
+            }
+        }
+
+        .pag-item {
+            display: block;
+            padding: 12px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 8px;
+        
+            &:last-child {
+                margin-right: 0;
+            }
+        
+            &.hidden {
+                display: none;
+            }
+        }
+
+        .pag-item-submit {
+            flex: 0 1 180px;
+            font-size: 1rem;
+            color: #fff;
+            border-color: #696969;
+            background: #696969;
+        }
+
+        form{
+            width: 80%;
+        }
+
+        .repair label>span{
+            color: var(--primary);
+        }
+
+        .repair input, textarea, select, option{
+            border: 1px solid #1A1A1A;
+            border-radius: 1px;
+            background: var(--surface);
+            min-height: 24px;
+            padding: 0.7em;
+            margin: 0.5em 0 1.5em;
+        }
+
+        #radioContainer, #radioContainerHrs{
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        #radioContainer>label, #radioContainerHrs>label{
+            display: flex;
+            margin-left: 12px;
+            align-items: center;
+            column-gap: 5px;
+        }
+
+        .no-margin{
+            margin: 5px !important;
+        }
+
+        .repair .upload-file{
+            margin-top: 1em;
+            background: none;
+            border: none;
+        }
+
+        .repair .submit-button{
+            background: #F0C417;
+            padding: 1em;
+            border-radius: 0;
+            margin-top: 1em;
+            width: 100%;
+            cursor: pointer;
+            text-align: center;
+            border: 0;
+            font-weight: 800;
+        }
+
+        @media (max-width: 1040px){
+            .repair .centered{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+
+        @media only screen and (max-width: 480px){
+            .repair .text {
+                padding: 0;
+                max-width: 100%;
+            }
+
+            .repair .text p {
+                padding: 2em 3em;
+            }
+
+            .repair .form {
+                min-width: 0;
+            }
+
+            .repair .form>form {
+                width: 85%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <div class="grid repair">
+            <div class="centered">
+                <div class="text">
+                    <h0>Tu Equipo en manos expertas</h0>
+                    <p>Estás a tan solo unos pasos de contactar con nuestro staff de expertos en reparación de vintage HiFi. Al terminar el formulario se te redigirá a la página de pago, pues cada cotización tiene un valor de $30.000. Nuestro servicio especializado está disponible por ahora únicamente en Santiago y Concepción.</p>
+                </div>
+                <div class="form">
+                    <form id="formularie">
+                        <div class="tabs" id="tabbedForm">
+                            <nav class="tab-nav"></nav>
+                            <div class="tab selected" data-name="Santiago">
+                                <label for="name">Nombre y Apellido:</label>
+                                <input type="text" id="name" placeholder="Juan Correa" name="name">
+                                <label for="email">Correo Electrónico:</label>
+                                <input type="text" id="email" placeholder="juancorrea@gmail.com" name="email">
+                                <label for="phone">Número de Teléfono:</label>
+                                <input type="text" id="phone" placeholder="9 8765 4321" name="phone">
+                                <input type="hidden" name="hiddenData" value="Santiago" id="city">
+                                <label for="addres">Dirección:</label>
+                                <input type="text" id="addres" placeholder="Los Nogales 567" name="addres">
+                                <label for="type">Tipo de Equipo:</label>
+                                <select name="type" id="equipeType">
+                                    <option value="Integrated Amplifiers">Integrated Amplifiers</option>
+                                    <option value="AV Amplifiers">AV Amplifiers</option>
+                                    <option value="Quadraphonic Amplifiers">Quadraphonic Amplifiers</option>
+                                    <option value="Pre Amplifiers">Pre Amplifiers</option>
+                                    <option value="AV Controllers">AV Controllers</option>
+                                    <option value="Power Amplifiers">Power Amplifiers</option>
+                                    <option value="Stereo Receivers">Stereo Receivers</option>
+                                    <option value="Quadraphonic Receivers">Quadraphonic Receivers</option>
+                                    <option value="AV Receivers">AV Receivers</option>
+                                    <option value="Graphic Equalizers">Graphic Equalizers</option>
+                                    <option value="Noise Reduction Systems">Noise Reduction Systems</option>
+                                    <option value="Compact Disc Players">Compact Disc Players</option>
+                                    <option value="Digital Video Players">Digital Video Players</option>
+                                    <option value="DACs">DACs</option>
+                                    <option value="MiniDisc Decks">MiniDisc Decks</option>
+                                    <option value="DAT Decks">DAT Decks</option>
+                                    <option value="DCC Decks">DCC Decks</option>
+                                    <option value="Cassette Decks">Cassette Decks</option>
+                                    <option value="8-Track Decks">8-Track Decks</option>
+                                    <option value="Elcaset Decks">Elcaset Decks</option>
+                                    <option value="Tape Decks">Tape Decks</option>
+                                    <option value="Tuners">Tuners</option>
+                                    <option value="Radios">Radios</option>
+                                    <option value="Pocket MiniDisc Players">Pocket MiniDisc Players</option>
+                                    <option value="Loudspeakers">Loudspeakers</option>
+                                    <option value="HiFi Systems">HiFi Systems</option>
+                                </select>
+                                <label for="brand">Marca:</label>
+                                <select name="brand" id="brand">
+                                    <option value="Accuphase">Accuphase</option>
+                                    <option value="Aiwa">Aiwa</option>
+                                    <option value="Altec">Altec</option>
+                                    <option value="Braun">Braun</option>
+                                    <option value="Denon">Denon</option>
+                                    <option value="Dynaco">Dynaco</option>
+                                    <option value="ELAC">ELAC</option>
+                                    <option value="Grudig">Grudig</option>
+                                    <option value="Harman Kardon">Harman Kardon</option>
+                                    <option value="Jbl">Jbl</option>
+                                    <option value="JVC">JVC</option>
+                                    <option value="Kenwood">Kenwood</option>
+                                    <option value="Kyocera">Kyocera</option>
+                                    <option value="Lafayette">Lafayette</option>
+                                    <option value="Lenco">Lenco</option>
+                                    <option value="Luxman">Luxman</option>
+                                    <option value="Marantz">Marantz</option>
+                                    <option value="Mcintosh">Mcintosh</option>
+                                    <option value="Mitsubishi">Mitsubishi</option>
+                                    <option value="Nakamichi">Nakamichi</option>
+                                    <option value="Nec">Nec</option>
+                                    <option value="Nordmende">Nordmende</option>
+                                    <option value="Onkyo">Onkyo</option>
+                                    <option value="Philips">Philips</option>
+                                    <option value="Pioneer">Pioneer</option>
+                                    <option value="Quad">Quad</option>
+                                    <option value="Revox">Revox</option>
+                                    <option value="Rotel">Rotel</option>
+                                    <option value="Sae">Sae</option>
+                                    <option value="Sharp">Sharp</option>
+                                    <option value="Sherwood">Sherwood</option>
+                                    <option value="Sony">Sony</option>
+                                    <option value="Superscope">Superscope</option>
+                                    <option value="Tandberg">Tandberg</option>
+                                    <option value="Telefunken">Telefunken</option>
+                                    <option value="Toshiba">Toshiba</option>
+                                    <option value="Trio">Trio</option>
+                                    <option value="Victor">Victor</option>
+                                    <option value="Yamaha">Yamaha</option>
+                                </select>
+                                <label for="damage">Descripción:</label>
+                                <textarea type="text" id="damage" placeholder="Describe el problema de tu producto" rows="6" name="description"></textarea>
+                                <input class="submit-button" type="submit" value="Enviar y pagar">
+                            </div>
+                            <div class="tab" data-name="Concepción">
+                                <label for="name">Nombre y Apellido:</label>
+                                <input type="text" id="name" placeholder="Juan Correa" name="name">
+                                <label for="email">Correo Electrónico:</label>
+                                <input type="text" id="email" placeholder="juancorrea@gmail.com" name="email">
+                                <label for="phone">Número de Teléfono:</label>
+                                <input type="text" id="phone" placeholder="9 8765 4321" name="phone">
+                                <input type="hidden" name="hiddenData" value="Concepción" id="city">
+                                <label for="addres">Dirección:</label>
+                                <input type="text" id="addres" placeholder="Los Nogales 567" name="addres">
+                                <label for="type">Tipo de Equipo:</label>
+                                <select name="type" id="equipeType">
+                                    <option value="Integrated Amplifiers">Integrated Amplifiers</option>
+                                    <option value="AV Amplifiers">AV Amplifiers</option>
+                                    <option value="Quadraphonic Amplifiers">Quadraphonic Amplifiers</option>
+                                    <option value="Pre Amplifiers">Pre Amplifiers</option>
+                                    <option value="AV Controllers">AV Controllers</option>
+                                    <option value="Power Amplifiers">Power Amplifiers</option>
+                                    <option value="Stereo Receivers">Stereo Receivers</option>
+                                    <option value="Quadraphonic Receivers">Quadraphonic Receivers</option>
+                                    <option value="AV Receivers">AV Receivers</option>
+                                    <option value="Graphic Equalizers">Graphic Equalizers</option>
+                                    <option value="Noise Reduction Systems">Noise Reduction Systems</option>
+                                    <option value="Compact Disc Players">Compact Disc Players</option>
+                                    <option value="Digital Video Players">Digital Video Players</option>
+                                    <option value="DACs">DACs</option>
+                                    <option value="MiniDisc Decks">MiniDisc Decks</option>
+                                    <option value="DAT Decks">DAT Decks</option>
+                                    <option value="DCC Decks">DCC Decks</option>
+                                    <option value="Cassette Decks">Cassette Decks</option>
+                                    <option value="8-Track Decks">8-Track Decks</option>
+                                    <option value="Elcaset Decks">Elcaset Decks</option>
+                                    <option value="Tape Decks">Tape Decks</option>
+                                    <option value="Tuners">Tuners</option>
+                                    <option value="Radios">Radios</option>
+                                    <option value="Pocket MiniDisc Players">Pocket MiniDisc Players</option>
+                                    <option value="Loudspeakers">Loudspeakers</option>
+                                    <option value="HiFi Systems">HiFi Systems</option>
+                                </select>
+                                <label for="brand">Marca:</label>
+                                <select name="brand" id="brand">
+                                    <option value="Accuphase">Accuphase</option>
+                                    <option value="Aiwa">Aiwa</option>
+                                    <option value="Altec">Altec</option>
+                                    <option value="Braun">Braun</option>
+                                    <option value="Denon">Denon</option>
+                                    <option value="Dynaco">Dynaco</option>
+                                    <option value="ELAC">ELAC</option>
+                                    <option value="Grudig">Grudig</option>
+                                    <option value="Harman Kardon">Harman Kardon</option>
+                                    <option value="Jbl">Jbl</option>
+                                    <option value="JVC">JVC</option>
+                                    <option value="Kenwood">Kenwood</option>
+                                    <option value="Kyocera">Kyocera</option>
+                                    <option value="Lafayette">Lafayette</option>
+                                    <option value="Lenco">Lenco</option>
+                                    <option value="Luxman">Luxman</option>
+                                    <option value="Marantz">Marantz</option>
+                                    <option value="Mcintosh">Mcintosh</option>
+                                    <option value="Mitsubishi">Mitsubishi</option>
+                                    <option value="Nakamichi">Nakamichi</option>
+                                    <option value="Nec">Nec</option>
+                                    <option value="Nordmende">Nordmende</option>
+                                    <option value="Onkyo">Onkyo</option>
+                                    <option value="Philips">Philips</option>
+                                    <option value="Pioneer">Pioneer</option>
+                                    <option value="Quad">Quad</option>
+                                    <option value="Revox">Revox</option>
+                                    <option value="Rotel">Rotel</option>
+                                    <option value="Sae">Sae</option>
+                                    <option value="Sharp">Sharp</option>
+                                    <option value="Sherwood">Sherwood</option>
+                                    <option value="Sony">Sony</option>
+                                    <option value="Superscope">Superscope</option>
+                                    <option value="Tandberg">Tandberg</option>
+                                    <option value="Telefunken">Telefunken</option>
+                                    <option value="Toshiba">Toshiba</option>
+                                    <option value="Trio">Trio</option>
+                                    <option value="Victor">Victor</option>
+                                    <option value="Yamaha">Yamaha</option>
+                                </select>
+                                <label for="schedule-date">Agenda disponible</label>
+                                <div id="radioContainer"></div>
+                                <label for="schedule-date">Horas disponibles</label>
+                                <div id="radioContainerHrs">
+                                    <label><input type="radio" name="hour" value="13:30" class="no-margin">13:30</label><br>
+                                    <label><input type="radio" name="hour" value="14:00" class="no-margin">14:00</label><br>
+                                    <label><input type="radio" name="hour" value="14:30" class="no-margin">14:30</label><br>
+                                    <label><input type="radio" name="hour" value="15:00" class="no-margin">15:00</label><br>
+                                    <label><input type="radio" name="hour" value="15:30" class="no-margin">15:30</label><br>
+                                    <label><input type="radio" name="hour" value="16:00" class="no-margin">16:00</label><br>
+                                    <label><input type="radio" name="hour" value="16:30" class="no-margin">16:30</label><br>
+                                    <label><input type="radio" name="hour" value="17:00" class="no-margin">17:00</label><br>
+                                    <label><input type="radio" name="hour" value="17:30" class="no-margin">17:30</label><br>
+
+                                </div>
+                                <label for="damage">Descripción:</label>
+                                <textarea type="text" id="damage" placeholder="Describe el problema de tu producto" rows="6" name="description"></textarea>
+        
+                                <input class="submit-button" type="submit" value="Enviar y pagar">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        var tabs = function(id) {
+        this.el = document.getElementById(id);
+        
+        this.tab = {
+            el: '.tab',
+            list: null
+        }
+        
+        this.nav = {
+            el: '.tab-nav',
+            list: null
+        }
+        
+        this.pag = {
+            el: '.tab-pag',
+            list: null
+        }
+        
+        this.count = null;
+        this.selected = 0;
+        
+        this.init = function() {
+            // Create tabs
+            this.tab.list = this.createTabList();
+            this.count = this.tab.list.length;
+            
+            // Create nav
+            this.nav.list = this.createNavList();
+            this.renderNavList();
+            
+            // Set selected
+            this.setSelected(this.selected);
+        }
+        
+        this.createTabList = function() {
+            var list = [];
+            
+            this.el.querySelectorAll(this.tab.el).forEach(function(el, i) {
+            list[i] = el;
+            });
+            
+            return list;
+        }
+        
+        this.createNavList = function() {
+            var list = [];
+            
+            this.tab.list.forEach(function(el, i) {
+            var listitem = document.createElement('a');
+                listitem.className = 'nav-item',
+                listitem.innerHTML = el.getAttribute('data-name'),
+                listitem.onclick = function() {
+                    this.setSelected(i);
+                    return false;
+                }.bind(this);
+            
+            list[i] = listitem;
+            }.bind(this));
+            
+            return list;
+        }
+        
+        this.renderNavList = function() {
+            var nav = document.querySelector(this.nav.el);
+            
+            this.nav.list.forEach(function(el) {
+            nav.appendChild(el);
+            });
+        }
+        
+        this.renderPagList = function() {
+            var pag = document.querySelector(this.pag.el);
+            
+            pag.appendChild(this.pag.list.prev);
+            pag.appendChild(this.pag.list.next);
+            pag.appendChild(this.pag.list.submit);
+        }
+        
+        this.setSelected = function(target) {
+            var min = 0,
+                max = this.count - 1;
+            
+            if(target > max || target < min) {
+            return;
+            }
+            
+            this.tab.list[this.selected].classList.remove('selected');
+            this.nav.list[this.selected].classList.remove('selected');
+
+            this.selected = target;
+            this.tab.list[this.selected].classList.add('selected');
+            this.nav.list[this.selected].classList.add('selected');
+        }
+        };
+
+        var tabbedForm = new tabs('tabbedForm');
+        tabbedForm.init();
+    </script>
+    <script>
+        function createWeekdayRadioInputs() {
+            var container = document.getElementById('radioContainer'); // Reemplaza con el ID de tu contenedor
+            var currentDate = new Date();
+            var addedDays = 0;
+
+            while (addedDays < 5) {
+                currentDate.setDate(currentDate.getDate() + 1);
+
+                // Verifica si el día es sábado (6) o domingo (0)
+                if (currentDate.getDay() !== 0 && currentDate.getDay() !== 6) {
+                    var radioInput = document.createElement('input');
+                    var label = document.createElement('label');
+
+                    radioInput.type = 'radio';
+                    radioInput.name = 'weekday';
+                    radioInput.className = 'no-margin';
+
+                    // Formatear la fecha para mostrar solo el día de la semana y el mes con el día
+                    var options = { weekday: 'long', month: 'long', day: 'numeric' };
+                    radioInput.value = currentDate.toLocaleDateString('es-ES', options);
+
+                    label.appendChild(radioInput);
+                    label.appendChild(document.createTextNode(radioInput.value));
+
+                    container.appendChild(label);
+                    container.appendChild(label);
+                    container.appendChild(document.createElement('br'));
+
+                    addedDays++;
+                }
+            }
+        }
+    </script>
+    <script>
+        createWeekdayRadioInputs();
+    </script>
+</body>
+</html>
